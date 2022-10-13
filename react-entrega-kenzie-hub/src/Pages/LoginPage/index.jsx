@@ -1,4 +1,5 @@
 import LoginForm from "../../components/LoginForm";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   return (
@@ -6,7 +7,7 @@ const LoginPage = () => {
       <h1>Kenzie Hub</h1>
       <LoginForm />
       <p>ainda não possui uma conta?</p>
-      <a href="/register">Cadastre-se</a>
+      <Link to="/register">Cadastre-se</Link>
     </>
   );
 };
