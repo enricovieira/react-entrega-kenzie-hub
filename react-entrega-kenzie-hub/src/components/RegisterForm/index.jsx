@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Form } from "./style";
 
 const RegisterForm = () => {
   const schema = yup.object().shape({
@@ -49,7 +50,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitFunction)}>
+    <Form onSubmit={handleSubmit(onSubmitFunction)}>
       <label htmlFor="name">Nome</label>
       <input placeholder="Digite aqui seu nome" {...register("name")} />
       <p>{errors.name?.message}</p>
@@ -61,6 +62,7 @@ const RegisterForm = () => {
       <p>{errors.password?.message}</p>
       <label htmlFor="passwordConfirm">Confirmar senha</label>
       <input name="passwordConfirm" placeholder="Confirme sua senha" />
+      <p></p>
       <label htmlFor="bio">Bio</label>
       <input placeholder="Fale sobre você" {...register("bio")} />
       <p>{errors.bio?.message}</p>
@@ -74,7 +76,7 @@ const RegisterForm = () => {
         ))}
       </select>
       <button type="submit">Cadastrar</button>
-    </form>
+    </Form>
   );
 };
 

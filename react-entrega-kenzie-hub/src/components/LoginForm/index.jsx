@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { Form } from "./style";
 const LoginForm = () => {
   const { register, handleSubmit } = useForm();
 
@@ -20,13 +20,17 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmitFunction)}>
-      <label htmlFor="email">Email</label>
-      <input placeholder="Digite seu email" {...register("email")} />
-      <label htmlFor="password">Senha</label>
-      <input type="password" placeholder="********" {...register("password")} />
-      <button type="submit">Entrar</button>
-    </form>
+      <Form onSubmit={handleSubmit(onSubmitFunction)}>
+        <label htmlFor="email">Email</label>
+        <input placeholder="Digite seu email" {...register("email")} />
+        <label htmlFor="password">Senha</label>
+        <input
+          type="password"
+          placeholder="********"
+          {...register("password")}
+        />
+        <button type="submit">Entrar</button>
+      </Form>
   );
 };
 
