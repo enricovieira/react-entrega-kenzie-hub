@@ -1,15 +1,21 @@
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const { register, handleSubmit } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmitFunction = (data) => {
     axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        window.localStorage.clear();
+        window.localStorage.setItem("authToken", res.token);
+        navigate("/dashboard");
+      })
       .catch((err) => console.log(err));
   };
 
