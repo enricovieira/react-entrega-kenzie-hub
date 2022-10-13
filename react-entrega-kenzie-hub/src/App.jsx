@@ -10,8 +10,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="dashboard" element={<Dashboard />} />
       </Routes>
     </div>
   );

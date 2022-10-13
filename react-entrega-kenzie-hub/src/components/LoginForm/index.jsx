@@ -13,7 +13,7 @@ const LoginForm = () => {
       .then((res) => {
         console.log(res);
         window.localStorage.clear();
-        window.localStorage.setItem("authToken", res.token);
+        window.localStorage.setItem("authToken", res.data.token);
         navigate("/dashboard");
       })
       .catch((err) => console.log(err));

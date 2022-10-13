@@ -1,19 +1,43 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import Profile from "../../components/Profile";
+
 const Dashboard = () => {
+  const navigate = useNavigate();
+
+  const [userResponse, setUserResponse] = useState({});
+  const user = window.localStorage.getItem("authToken");
+
+  const logout = () => {
+    window.localStorage.clear();
+    navigate("/");
+  };
+
+  useEffect(() => {
+    axios
+      .get("https://kenziehub.herokuapp.com/profile", {
+        headers: {
+          authorization: `Bearer ${user}`,
+        },
+      })
+      .then((res) => {
+        setUserResponse(res.data);
+      });
+  }, []);
+
   return (
     <>
-      <header>
-        <h1>Kenzie Hub</h1>
-        <button>Sair</button>
-      </header>
-      <main>
-        <h2>Olá, usuário</h2>
-        <span>Módulo X</span>
-
-        <div>
-          <h2> Que Pena! Estamos em manutenção</h2>
-          <span>Nossa aplicação está em desenvolvimento</span>
-        </div>
-      </main>
+      {user ? (
+        <>
+          <header>
+            <h1>dashboard</h1> <button onClick={logout}>Sair</button>
+          </header>
+          <main>{<Profile userResponse={userResponse} />}</main>
+        </>
+      ) : (
+        <Navigate to="/" replace />
+      )}
     </>
   );
 };
