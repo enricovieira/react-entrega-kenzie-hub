@@ -2,12 +2,19 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
   const schema = yup.object().shape({
     name: yup.string().required("Nome é obrigatório"),
     email: yup.string().required("Email é obrigatório").email("Email inválido"),
-    password: yup.string().required("Senha é obrigatória"),
+    password: yup
+      .string()
+      .required("Senha é obrigatória")
+      .matches(
+        "^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{8,20}$",
+        "Senha Inválida"
+      ),
     bio: yup.string().required("Bio é obrigatória"),
     contact: yup.string().required("Contato é obrigatóio"),
   });
@@ -29,10 +36,15 @@ const RegisterForm = () => {
     "Sexto Módulo",
   ];
 
+  const navigate = useNavigate();
+
   const onSubmitFunction = (data) => {
     axios
       .post("https://kenziehub.herokuapp.com/users", data)
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        navigate("/");
+      })
       .catch((err) => console.log(err));
   };
 
