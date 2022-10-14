@@ -31,7 +31,7 @@ export const ContainerCenter = styled.div`
     border-radius: 4px;
   }
 
-  button:hover {
+  header > button:hover {
     background-color: var(--grey-2);
   }
 
