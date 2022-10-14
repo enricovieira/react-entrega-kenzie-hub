@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Container, ContainerNav, Main, MainContainer } from "./style";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import Profile from "../../components/Profile";
@@ -29,12 +30,23 @@ const Dashboard = () => {
   return (
     <>
       {user ? (
-        <>
-          <header>
-            <h1>dashboard</h1> <button onClick={logout}>Sair</button>
-          </header>
-          <main>{<Profile userResponse={userResponse} />}</main>
-        </>
+        <Container>
+          <ContainerNav>
+            <nav>
+              <h1>Kenzie Hub</h1> <button onClick={logout}>Sair</button>
+            </nav>
+          </ContainerNav>
+          <Profile userResponse={userResponse} />
+          <Main>
+            <MainContainer>
+              <p>Que pena! Estamos em desenvolvimento :(</p>
+              <span>
+                Nossa aplicação está em desenvolvimento, em breve teremos
+                novidades
+              </span>
+            </MainContainer>
+          </Main>
+        </Container>
       ) : (
         <Navigate to="/" replace />
       )}

@@ -1,9 +1,13 @@
+import { Header, HeaderContainer } from "./style";
+
 const Profile = ({ userResponse }) => {
   return (
-    <div>
-      <h2>Olá, {userResponse.name} </h2>
+    <Header>
+      <HeaderContainer>
+        <h2>Olá, {userResponse.name} </h2>
       <span>{userResponse.course_module}</span>
-    </div>
+      </HeaderContainer>
+    </Header>
   );
 };
 
