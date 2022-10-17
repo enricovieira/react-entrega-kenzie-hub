@@ -40,7 +40,7 @@ export const ContainerNav = styled.div`
 
 export const Main = styled.main`
   width: 100%;
-  height: 180px;
+  height: 250px;
   display: flex;
   justify-content: center;
 `;

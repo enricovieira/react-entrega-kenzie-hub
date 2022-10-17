@@ -1,13 +1,18 @@
 import axios from "axios";
-import { Container, ContainerNav, Main, MainContainer } from "./style";
+import { Container, ContainerNav, Main } from "./style";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import DashboardTechs from "../../components/DashboardTechs";
 import Profile from "../../components/Profile";
+import PostModal from "../../components/PostModal";
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
+  const [isModal, setIsModal] = useState(false);
+
   const [userResponse, setUserResponse] = useState({});
+  const [userTechs, setUserTechs] = useState([])
   const user = window.localStorage.getItem("authToken");
 
   const logout = () => {
@@ -16,15 +21,25 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    axios
-      .get("https://kenziehub.herokuapp.com/profile", {
-        headers: {
-          authorization: `Bearer ${user}`,
-        },
-      })
-      .then((res) => {
-        setUserResponse(res.data);
-      });
+    async function getProfile() {
+      try {
+        const response = await axios.get(
+          "https://kenziehub.herokuapp.com/profile",
+          {
+            headers: {
+              authorization: `Bearer ${user}`,
+            },
+          }
+        );
+        setUserResponse(response.data);
+        setUserTechs(response.data.techs)
+        console.log(response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    getProfile();
   }, []);
 
   return (
@@ -38,14 +53,12 @@ const Dashboard = () => {
           </ContainerNav>
           <Profile userResponse={userResponse} />
           <Main>
-            <MainContainer>
-              <p>Que pena! Estamos em desenvolvimento :(</p>
-              <span>
-                Nossa aplicação está em desenvolvimento, em breve teremos
-                novidades
-              </span>
-            </MainContainer>
+            <DashboardTechs
+              userTechs={userTechs}
+              setIsModal={setIsModal}
+            />
           </Main>
+          <PostModal isModal={isModal} setModal={setIsModal} />
         </Container>
       ) : (
         <Navigate to="/" replace />

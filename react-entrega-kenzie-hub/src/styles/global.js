@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  body, h2, h1, p, span, main, header, div, h3, button, form, a, label, select{
+  body, h2, h1, p, span, main, header, div, h3, button, form, a, label, select,ul,li{
     margin: 0;
     padding: 0;
     list-style: none;
@@ -33,6 +33,8 @@ const GlobalStyle = createGlobalStyle`
 
     --succes: #3FE864;
     --negative: #E83F5B;
+
+    --grey-50: #12121480
   }
   `;
 
