@@ -1,9 +1,10 @@
 import LoginForm from "../../components/LoginForm";
-import { Link, useNavigate } from "react-router-dom";
-import { Container, ContainerCenter, FormContainer, LinkStyled } from "./style";
+import { useNavigate } from "react-router-dom";
+import { Container, ContainerCenter, FormContainer } from "./style";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  
   return (
     <Container>
       <ContainerCenter>

@@ -16,6 +16,16 @@ export const Container = styled.div`
     font-size: 1rem;
   }
 
+  header > button {
+    background-color: var(--grey-2);
+    color: var(--grey-0);
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border: none;
+    border-radius: 4px;
+  }
+
   ul {
     background-color: var(--grey-3);
     padding: 20px 15px;
