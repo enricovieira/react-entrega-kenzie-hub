@@ -40,15 +40,6 @@ const Dashboard = () => {
     }
 
     getProfile();
-    // axios
-    //   .get("https://kenziehub.herokuapp.com/profile", {
-    //     headers: {
-    //       authorization: `Bearer ${user}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     setUserResponse(res.data);
-    //   });
   }, []);
 
   return (
