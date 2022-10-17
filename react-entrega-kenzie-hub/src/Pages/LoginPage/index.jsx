@@ -4,6 +4,7 @@ import { Container, ContainerCenter, FormContainer } from "./style";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  
   return (
     <Container>
       <ContainerCenter>
