@@ -1,11 +1,13 @@
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { Form } from "./style";
+import { useContext } from "react";
+import { RequisitionsContext } from "../../contexts/RequisitionsContext";
 
 const RegisterForm = () => {
+  const {Register} = useContext(RequisitionsContext)
+
   const schema = yup.object().shape({
     name: yup.string().required("Nome é obrigatório"),
     email: yup.string().required("Email é obrigatório").email("Email inválido"),
@@ -37,20 +39,8 @@ const RegisterForm = () => {
     "Sexto Módulo",
   ];
 
-  const navigate = useNavigate();
-
-  const onSubmitFunction = (data) => {
-    axios
-      .post("https://kenziehub.herokuapp.com/users", data)
-      .then((res) => {
-        console.log(res);
-        navigate("/");
-      })
-      .catch((err) => console.log(err));
-  };
-
   return (
-    <Form onSubmit={handleSubmit(onSubmitFunction)}>
+    <Form onSubmit={handleSubmit(Register)}>
       <label htmlFor="name">Nome</label>
       <input placeholder="Digite aqui seu nome" {...register("name")} />
       <p>{errors.name?.message}</p>
