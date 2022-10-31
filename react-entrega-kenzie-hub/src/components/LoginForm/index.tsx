@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { Form } from "./style";
 import { useContext } from "react";
-import { RequisitionsContext } from "../../contexts/RequisitionsContext";
+import { iLoginData, RequisitionsContext } from "../../contexts/RequisitionsContext";
 const LoginForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<iLoginData>();
 
   const { Login } = useContext(RequisitionsContext);
 

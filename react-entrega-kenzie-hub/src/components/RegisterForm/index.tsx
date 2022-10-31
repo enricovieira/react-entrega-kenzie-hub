@@ -3,21 +3,22 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Form } from "./style";
 import { useContext } from "react";
-import { RequisitionsContext } from "../../contexts/RequisitionsContext";
+import {
+  iRegisterData,
+  RequisitionsContext,
+} from "../../contexts/RequisitionsContext";
 
 const RegisterForm = () => {
-  const {Register} = useContext(RequisitionsContext)
+  const { Register } = useContext(RequisitionsContext);
 
   const schema = yup.object().shape({
     name: yup.string().required("Nome é obrigatório"),
     email: yup.string().required("Email é obrigatório").email("Email inválido"),
-    password: yup
-      .string()
-      .required("Senha é obrigatória")
-      .matches(
-        "^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{8,20}$",
-        "Senha Inválida"
-      ),
+    password: yup.string().required("Senha é obrigatória"),
+    // .matches (
+    //   "^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{8,20}$",
+    //   "Senha Inválida"
+    // )
     bio: yup.string().required("Bio é obrigatória"),
     contact: yup.string().required("Contato é obrigatóio"),
   });
@@ -26,7 +27,7 @@ const RegisterForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iRegisterData>({
     resolver: yupResolver(schema),
   });
 
@@ -51,7 +52,7 @@ const RegisterForm = () => {
       <input placeholder="Digite aqui sua senha" {...register("password")} />
       <p>{errors.password?.message}</p>
       <label htmlFor="passwordConfirm">Confirmar senha</label>
-      <input name="passwordConfirm" placeholder="Confirme sua senha" />
+      <input placeholder="Confirme sua senha" />
       <p></p>
       <label htmlFor="bio">Bio</label>
       <input placeholder="Fale sobre você" {...register("bio")} />
@@ -60,7 +61,7 @@ const RegisterForm = () => {
       <input placeholder="Opção de contato" {...register("contact")} />
       <p>{errors.contact?.message}</p>
       <label htmlFor="modules">Selecionar módulo</label>
-      <select name="modules" {...register("course_module")}>
+      <select {...register("course_module")}>
         {modules.map((item, index) => (
           <option key={index}>{item}</option>
         ))}

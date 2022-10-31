@@ -2,13 +2,23 @@ import { Background, Modal } from "./style";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-const PostModal = ({ isModal, setModal }) => {
+interface iSubmitData {
+  title: string;
+  status: string;
+}
+
+interface iPostModalProps {
+  isModal: boolean;
+  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const PostModal = ({ isModal, setModal }: iPostModalProps) => {
   const statusArray = ["Iniciante", "Intermediário", "Avançado"];
   const user = window.localStorage.getItem("authToken");
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<iSubmitData>();
 
-  const onSubmitFunction = (data) => {
+  const onSubmitFunction = (data: iSubmitData) => {
     axios
       .post("https://kenziehub.herokuapp.com/users/techs", data, {
         headers: {
@@ -40,7 +50,7 @@ const PostModal = ({ isModal, setModal }) => {
                 {...register("title")}
               />
               <label htmlFor="status">Selecionar Status</label>
-              <select name="status" {...register("status")}>
+              <select {...register("status")}>
                 {statusArray.map((item, index) => (
                   <option key={index}>{item}</option>
                 ))}

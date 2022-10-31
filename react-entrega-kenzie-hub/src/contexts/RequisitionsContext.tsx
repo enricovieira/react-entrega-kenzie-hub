@@ -2,12 +2,35 @@ import { createContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const RequisitionsContext = createContext({});
+interface iRequisitionContext {
+  children: React.ReactNode;
+}
 
-export const RequisitionsProvider = ({ children }) => {
+export interface iLoginData {
+  email: string;
+  password: string;
+}
+
+export interface iRegisterData {
+  email: string;
+  password: string;
+  name: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
+
+interface iRequisition {
+  Login: (data: iLoginData) => void;
+  Register: (data: iRegisterData) => void;
+}
+
+export const RequisitionsContext = createContext({} as iRequisition);
+
+export const RequisitionsProvider = ({ children }: iRequisitionContext) => {
   const navigate = useNavigate();
 
-  const Login = async (data) => {
+  const Login = async (data: iLoginData) => {
     await axios
       .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((res) => {
@@ -19,7 +42,7 @@ export const RequisitionsProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  const Register = async (data) => {
+  const Register = async (data: iRegisterData) => {
     await axios
       .post("https://kenziehub.herokuapp.com/users", data)
       .then((res) => {
