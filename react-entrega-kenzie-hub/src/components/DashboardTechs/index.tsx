@@ -1,10 +1,25 @@
 import { Container } from "./style";
 import axios from "axios";
 
-const DashboardTechs = ({ userTechs, setIsModal }) => {
+interface iUserTechs {
+  
+    id: string,
+    title: string,
+    status: string,
+    created_at: string,
+    updated_at: string
+  
+}
+
+interface iDashboardProps{
+  userTechs: iUserTechs[],
+  setIsModal: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+const DashboardTechs = ({ userTechs, setIsModal } : iDashboardProps) => {
   const user = window.localStorage.getItem("authToken");
 
-  const deleteTech = (id) => {
+  const deleteTech = (id : string) => {
     axios
       .delete(`https://kenziehub.herokuapp.com/users/techs/${id}`, {
         headers: {
@@ -33,7 +48,7 @@ const DashboardTechs = ({ userTechs, setIsModal }) => {
                   <span>{tech.status}</span>
                   <button
                     id={tech.id}
-                    onClick={(event) => deleteTech(event.target.id)}
+                    onClick={(event) => deleteTech((event.target as HTMLInputElement).id)}
                   >
                     remover
                   </button>
