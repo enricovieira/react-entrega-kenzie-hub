@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface iRequisitionContext {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ export interface iLoginData {
 export interface iRegisterData {
   email: string;
   password: string;
+  passwordConfirm: string;
   name: string;
   bio: string;
   contact: string;
@@ -39,14 +41,18 @@ export const RequisitionsProvider = ({ children }: iRequisitionContext) => {
         window.localStorage.setItem("authToken", res.data.token);
         navigate("/dashboard");
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        toast.error("Email ou senha inválidos.", {
+          autoClose: 1000,
+        })
+      );
   };
 
   const Register = async (data: iRegisterData) => {
     await axios
       .post("https://kenziehub.herokuapp.com/users", data)
       .then((res) => {
-        console.log(res);
+        toast.success('Cadastro realizado.')
         navigate("/");
       })
       .catch((err) => console.log(err));

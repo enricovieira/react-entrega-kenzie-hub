@@ -5,12 +5,15 @@ import LoginPage from "./Pages/LoginPage";
 import NotFoundPage from "./Pages/NotFoundPage";
 import RegisterPage from "./Pages/RegisterPage";
 import { RequisitionsProvider } from "./contexts/RequisitionsContext";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <>
       <GlobalStyle />
       <RequisitionsProvider>
+      <ToastContainer />
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
