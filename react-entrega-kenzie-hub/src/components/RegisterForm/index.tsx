@@ -14,11 +14,15 @@ const RegisterForm = () => {
   const schema = yup.object().shape({
     name: yup.string().required("Nome é obrigatório"),
     email: yup.string().required("Email é obrigatório").email("Email inválido"),
-    password: yup.string().required("Senha é obrigatória"),
-    // .matches (
-    //   "^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{8,20}$",
-    //   "Senha Inválida"
-    // )
+    password: yup.string().required("Senha é obrigatória").min(8, 'Deve conter no mínimo 8 caracteres')
+    .matches(/[A-Z]/, 'Deve conter ao menos uma letra maiúscula')
+    .matches(/[a-z]/, 'Deve conter ao menos uma letra minúscula')
+    .matches(/[0-9]/, 'Deve conter ao menos um número')
+    .matches(/(\W)|_/, 'Deve conter ao menos um caracter especial'),
+    passwordConfirm: yup
+      .string()
+      .required("Confirmação de senha obrigatória")
+      .oneOf([yup.ref("password"), null], "As senhas não conferem"),
     bio: yup.string().required("Bio é obrigatória"),
     contact: yup.string().required("Contato é obrigatóio"),
   });
@@ -49,11 +53,18 @@ const RegisterForm = () => {
       <input placeholder="Digite aqui seu email" {...register("email")} />
       <p>{errors.email?.message}</p>
       <label htmlFor="password">Senha</label>
-      <input placeholder="Digite aqui sua senha" {...register("password")} />
+      <input
+        id="password"
+        placeholder="Digite aqui sua senha"
+        {...register("password")}
+      />
       <p>{errors.password?.message}</p>
       <label htmlFor="passwordConfirm">Confirmar senha</label>
-      <input placeholder="Confirme sua senha" />
-      <p></p>
+      <input
+        placeholder="Confirme sua senha"
+        {...register("passwordConfirm")}
+      />
+      <p>{errors.passwordConfirm?.message}</p>
       <label htmlFor="bio">Bio</label>
       <input placeholder="Fale sobre você" {...register("bio")} />
       <p>{errors.bio?.message}</p>
