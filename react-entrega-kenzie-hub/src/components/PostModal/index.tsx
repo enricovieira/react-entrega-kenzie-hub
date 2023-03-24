@@ -28,7 +28,6 @@ const PostModal = ({ isModal, setModal }: iPostModalProps) => {
       .then((res) => {
         console.log(res);
         setModal(false);
-        window.location.reload();
       })
       .catch((err) => console.log(err));
   };

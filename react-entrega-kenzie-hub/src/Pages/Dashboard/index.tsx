@@ -51,7 +51,7 @@ const Dashboard = () => {
     }
 
     getProfile();
-  }, []);
+  }, [userTechs]);
 
   return (
     <>

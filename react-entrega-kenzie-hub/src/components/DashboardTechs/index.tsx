@@ -28,7 +28,6 @@ const DashboardTechs = ({ userTechs, setIsModal } : iDashboardProps) => {
       })
       .then((res) => {
         console.log(res);
-        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
