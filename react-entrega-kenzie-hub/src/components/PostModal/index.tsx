@@ -1,6 +1,8 @@
 import { Background, Modal } from "./style";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useContext } from "react";
+import { RequisitionsContext } from "../../contexts/RequisitionsContext";
 
 interface iSubmitData {
   title: string;
@@ -16,20 +18,13 @@ const PostModal = ({ isModal, setModal }: iPostModalProps) => {
   const statusArray = ["Iniciante", "Intermediário", "Avançado"];
   const user = window.localStorage.getItem("authToken");
 
+  const { PostTech } = useContext(RequisitionsContext);
+
   const { register, handleSubmit } = useForm<iSubmitData>();
 
   const onSubmitFunction = (data: iSubmitData) => {
-    axios
-      .post("https://kenziehub.herokuapp.com/users/techs", data, {
-        headers: {
-          authorization: `Bearer ${user}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setModal(false);
-      })
-      .catch((err) => console.log(err));
+    PostTech(data);
+    setModal(false);
   };
 
   return (

@@ -1,36 +1,25 @@
+import { useContext } from "react";
 import { Container } from "./style";
 import axios from "axios";
+import { RequisitionsContext } from "../../contexts/RequisitionsContext";
 
 interface iUserTechs {
-  
-    id: string,
-    title: string,
-    status: string,
-    created_at: string,
-    updated_at: string
-  
+  id: string;
+  title: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
 }
 
-interface iDashboardProps{
-  userTechs: iUserTechs[],
-  setIsModal: React.Dispatch<React.SetStateAction<boolean>>,
+interface iDashboardProps {
+  userTechs: iUserTechs[];
+  setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DashboardTechs = ({ userTechs, setIsModal } : iDashboardProps) => {
+const DashboardTechs = ({ userTechs, setIsModal }: iDashboardProps) => {
   const user = window.localStorage.getItem("authToken");
 
-  const deleteTech = (id : string) => {
-    axios
-      .delete(`https://kenziehub.herokuapp.com/users/techs/${id}`, {
-        headers: {
-          authorization: `Bearer ${user}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  };
+  const { DeleteTech } = useContext(RequisitionsContext);
 
   return (
     <Container>
@@ -47,7 +36,9 @@ const DashboardTechs = ({ userTechs, setIsModal } : iDashboardProps) => {
                   <span>{tech.status}</span>
                   <button
                     id={tech.id}
-                    onClick={(event) => deleteTech((event.target as HTMLInputElement).id)}
+                    onClick={(event) =>
+                      DeleteTech((event.target as HTMLInputElement).id)
+                    }
                   >
                     remover
                   </button>
