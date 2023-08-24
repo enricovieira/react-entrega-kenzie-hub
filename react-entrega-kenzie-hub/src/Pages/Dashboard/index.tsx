@@ -1,10 +1,11 @@
 import axios from "axios";
 import { Container, ContainerNav, Main } from "./style";
-import React, { SetStateAction, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import DashboardTechs from "../../components/DashboardTechs";
 import Profile from "../../components/Profile";
 import PostModal from "../../components/PostModal";
+import { RequisitionsContext } from "../../contexts/RequisitionsContext";
 
 export interface iUserResponse {
   id: string;
@@ -23,35 +24,14 @@ const Dashboard = () => {
 
   const [isModal, setIsModal] = useState(false);
 
-  const [userResponse, setUserResponse] = useState <any>({});
-  const [userTechs, setUserTechs] = useState([]);
-  const user = window.localStorage.getItem("authToken");
+  const {userResponse, userTechs} = useContext(RequisitionsContext)
 
   const logout = () => {
     window.localStorage.clear();
     navigate("/");
   };
 
-  useEffect(() => {
-    async function getProfile() {
-      try {
-        const response = await axios.get(
-          "https://kenziehub.herokuapp.com/profile",
-          {
-            headers: {
-              authorization: `Bearer ${user}`,
-            },
-          }
-        );
-        setUserResponse(response.data) ;
-        setUserTechs(response.data.techs);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getProfile();
-  }, [userTechs]);
+  const user = window.localStorage.getItem("authToken");
 
   return (
     <>
